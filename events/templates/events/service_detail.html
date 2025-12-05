@@ -1,0 +1,78 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}{{ service.title }} | Fabco Events{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-light-50">Home</a></li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'services_by_category' service.category.id %}" class="text-decoration-none text-light-50">
+            {{ service.category.name }}
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ service.title }}</li>
+      </ol>
+    </nav>
+
+    <div class="row g-4">
+      <!-- Left: Image -->
+      <div class="col-md-6">
+        <div class="hero-card shadow-lg">
+          {% if service.image %}
+            <img src="{{ service.image.url }}" class="img-fluid rounded-4" alt="{{ service.title }}">
+          {% else %}
+            <div class="service-placeholder" style="height:320px;">
+              <i class="fa-solid fa-couch"></i>
+            </div>
+          {% endif %}
+          <div class="hero-card-badge">
+            From ₹{{ service.price_start }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="col-md-6">
+        <p class="service-category mb-1">{{ service.category.name }}</p>
+        <h2 class="mb-2">{{ service.title }}</h2>
+        <p class="text-muted mb-3">Premium customisable setup for your event.</p>
+
+        <p class="mb-3">
+          {{ service.description|linebreaks }}
+        </p>
+
+        <div class="mb-3">
+          <span class="badge bg-warning text-dark me-1 mb-1">Stage Setup</span>
+          <span class="badge bg-warning text-dark me-1 mb-1">Lighting</span>
+          <span class="badge bg-warning text-dark me-1 mb-1">Sound & Music</span>
+          <span class="badge bg-warning text-dark me-1 mb-1">Photo/Video Ready</span>
+        </div>
+
+        <h5 class="mb-1">Starting Package</h5>
+        <p class="fs-5 fw-semibold mb-3">₹{{ service.price_start }}</p>
+
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <a href="{% url 'book_service' service.id %}" class="btn btn-primary btn-lg">
+            <i class="fa-regular fa-calendar-check me-2"></i> Book this Service
+          </a>
+          <a href="{% url 'services_by_category' service.category.id %}" class="btn btn-outline-light btn-lg">
+            Back to {{ service.category.name }}
+          </a>
+        </div>
+
+        <div class="small text-light-50">
+          <i class="fa-regular fa-circle-check me-1 text-success"></i> Custom colour theme (gold, pastel, classic etc.)<br>
+          <i class="fa-regular fa-circle-check me-1 text-success"></i> Setup & teardown handled by our team<br>
+          <i class="fa-regular fa-circle-check me-1 text-success"></i> Sound, lighting & LED wall can be added as add-ons
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

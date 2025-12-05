@@ -1,0 +1,129 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}Book {{ service.title }} | Fabco Events{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-light-50">Home</a></li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'service_detail' service.id %}" class="text-decoration-none text-light-50">
+            {{ service.title }}
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Book Now</li>
+      </ol>
+    </nav>
+
+    <div class="row g-4">
+      <!-- Left: Booking Form -->
+      <div class="col-lg-7">
+        <div class="service-card">
+          <div class="service-body">
+            <p class="service-category mb-1">Booking Request</p>
+            <h3 class="mb-2">Book: {{ service.title }}</h3>
+            <p class="service-text mb-4">
+              Fill in your event details. We’ll call you to confirm the package, price and additional options
+              (sound system, light decoration, LED wall, DJ, etc.).
+            </p>
+
+            <form method="post" novalidate>
+              {% csrf_token %}
+
+              <div class="row g-3">
+                <!-- Name -->
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Your Name</label>
+                  {{ form.customer_name}}
+                </div>
+
+                <!-- Phone -->
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Phone</label>
+                  {{ form.phone }}
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Email</label>
+                  {{ form.email }}
+                </div>
+
+                <!-- Event Date -->
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Event Date</label>
+                  {{ form.event_date }}
+                </div>
+
+                <!-- Event Time -->
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Event Time</label>
+                  {{ form.event_time }}
+                </div>
+
+                <!-- Guests Count -->
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Approx. Guests</label>
+                  {{ form.guests_count }}
+                </div>
+
+                <!-- Location -->
+                <div class="col-12">
+                  <label class="form-label small text-uppercase">Event Location</label>
+                  {{ form.location }}
+                </div>
+
+                <!-- Message -->
+                <div class="col-12">
+                  <label class="form-label small text-uppercase">Additional Details</label>
+                  {{ form.message }}
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg mt-3">
+                <i class="fa-regular fa-paper-plane me-2"></i> Submit Booking Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Summary Card -->
+      <div class="col-lg-5">
+        <div class="service-card">
+          <div class="service-image-wrapper">
+            {% if service.image %}
+              <img src="{{ service.image.url }}" class="service-image" alt="{{ service.title }}">
+            {% else %}
+              <div class="service-placeholder">
+                <i class="fa-solid fa-couch"></i>
+              </div>
+            {% endif %}
+            <div class="service-tag">
+              From ₹{{ service.price_start }}
+            </div>
+          </div>
+          <div class="service-body">
+            <p class="service-category mb-1">{{ service.category.name }}</p>
+            <h5 class="service-title">{{ service.title }}</h5>
+            <p class="service-text mb-3">
+              {{ service.short_description|truncatechars:130 }}
+            </p>
+            <ul class="small text-light-50 mb-0">
+              <li>Stage, backdrop & basic lighting included (as per package).</li>
+              <li>Extra items like LED wall, DJ, special light & entry etc. on request.</li>
+              <li>Team handles full setup & teardown at venue.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

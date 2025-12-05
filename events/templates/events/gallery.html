@@ -1,0 +1,45 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}Gallery | Fabco Events{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <p class="badge-glow mb-2">Our Work</p>
+        <h2 class="section-title mb-1">Event Gallery</h2>
+        <p class="section-subtitle mb-0">
+          A glimpse of our wedding stages, birthday setups, college events, corporate functions,
+          DJ nights, light decoration and LED wall events.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="row g-3">
+      {% for service in services %}
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="gallery-item">
+            {% if service.image %}
+              <img src="{{ service.image.url }}" alt="{{ service.title }}">
+            {% endif %}
+            <div class="gallery-overlay">
+              <div class="gallery-text">
+                <p class="small mb-0 text-uppercase">{{ service.category.name }}</p>
+                <h6 class="mb-0">{{ service.title }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No images yet. Add images to your services from the admin panel.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | YANZIO Events{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <p class="badge-glow mb-2">Let’s plan your event</p>
+        <h2 class="section-title mb-1">Contact YANZIO Events</h2>
+        <p class="section-subtitle mb-0">
+          Tell us about your wedding, birthday, corporate function or public event.  
+          We’ll help you design the perfect stage, sound, light and decor.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left: Contact Info -->
+      <div class="col-lg-4">
+        <div class="service-card h-100">
+          <div class="service-body">
+            <h5 class="mb-3">Get in touch</h5>
+
+            <div class="small text-light-50 mb-3">
+              <p class="mb-1 fw-semibold text-white">Office Address</p>
+              <p class="mb-2">
+               YANZIO Events<br>
+                Kodakara, Thrissur, Kerala
+              </p>
+
+              <p class="mb-1 fw-semibold text-white">Phone / WhatsApp</p>
+              <p class="mb-2">
+                📞 <a href="tel:+918137832272" class="contact-link">+91 81378 32272</a><br>
+                💬 <a href="https://wa.me/+918137832272" target="_blank" class="contact-link">Chat on WhatsApp</a>
+              </p>
+
+              <p class="mb-1 fw-semibold text-white">Email</p>
+              <p class="mb-2">
+                ✉️ <a href="mailto:info@fabcoevents.com" class="contact-link">info@yanzioevents.com</a>
+              </p>
+            </div>
+
+            <hr class="border-secondary">
+
+            <div class="small text-light-50">
+              <p class="mb-1 fw-semibold text-white">Working hours</p>
+              <p class="mb-2">
+                Mon – Sat: 9:00 AM – 7:00 PM<br>
+                Sunday: On-call for events
+              </p>
+
+              <p class="mb-1 fw-semibold text-white">Follow us</p>
+              <p class="mb-0">
+                <i class="fa-brands fa-instagram me-2"></i>
+                <i class="fa-brands fa-facebook me-2"></i>
+                <i class="fa-brands fa-whatsapp"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="col-lg-8">
+        <div class="service-card">
+          <div class="service-body">
+            <p class="service-category mb-1">Enquiry form</p>
+            <h3 class="mb-2">Tell us about your event</h3>
+            <p class="service-text mb-4">
+              Share your event details and we’ll get back with options for stage setup, sound,
+              light decoration, LED wall, DJ, and complete event management.
+            </p>
+
+            <form method="post" novalidate>
+              {% csrf_token %}
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Name</label>
+                  {{ form.name }}
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Email</label>
+                  {{ form.email }}
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Phone</label>
+                  {{ form.phone }}
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Subject</label>
+                  {{ form.subject }}
+                </div>
+                <div class="col-12">
+                  <label class="form-label small text-uppercase">Message</label>
+                  {{ form.message }}
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg mt-3">
+                <i class="fa-regular fa-paper-plane me-2"></i>
+                Send Message
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

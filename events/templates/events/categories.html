@@ -1,0 +1,41 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}All Event Categories | Fabco Events{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container">
+    <h2 class="section-title mb-4">All Event Categories</h2>
+
+    <div class="row g-4">
+      {% for category in categories %}
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="category-card h-100">
+            <div class="category-image-wrapper">
+              {% if category.image %}
+                <img src="{{ category.image.url }}" class="category-image" alt="{{ category.name }}">
+              {% else %}
+                <div class="category-placeholder">
+                  <i class="fa-solid fa-image"></i>
+                </div>
+              {% endif %}
+            </div>
+            <div class="category-body">
+              <h5 class="category-title">{{ category.name }}</h5>
+              <p class="category-text">
+                {{ category.description|default:"Custom-designed setup for your event."|truncatechars:70 }}
+              </p>
+              <a href="{% url 'services_by_category' category.id %}" class="category-link">
+                View services <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No categories created yet. Add some from admin panel.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

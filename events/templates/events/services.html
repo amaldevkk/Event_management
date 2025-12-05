@@ -1,0 +1,69 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} | Fabco Events{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-light-50">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'categories' %}" class="text-decoration-none text-light-50">Categories</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+      <div>
+        <h2 class="section-title mb-1">{{ category.name }}</h2>
+        <p class="section-subtitle mb-0">
+          {{ category.description|default:"Beautifully curated event setups for your special occasion." }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="row g-4">
+      {% for service in services %}
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card h-100">
+            <div class="service-image-wrapper">
+              {% if service.image %}
+                <img src="{{ service.image.url }}" class="service-image" alt="{{ service.title }}">
+              {% else %}
+                <div class="service-placeholder">
+                  <i class="fa-solid fa-couch"></i>
+                </div>
+              {% endif %}
+              <div class="service-tag">
+                From ₹{{ service.price_start }}
+              </div>
+            </div>
+            <div class="service-body">
+              <p class="service-category mb-1">{{ category.name }}</p>
+              <h5 class="service-title">{{ service.title }}</h5>
+              <p class="service-text">
+                {{ service.short_description|truncatechars:110 }}
+              </p>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <a href="{% url 'service_detail' service.id %}" class="btn btn-sm btn-outline-light">
+                  View Details
+                </a>
+                <a href="{% url 'book_service' service.id %}" class="btn btn-sm btn-primary">
+                  <i class="fa-regular fa-calendar-check me-1"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No services added under this category yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

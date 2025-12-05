@@ -1,0 +1,135 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}Home | Fabco Events{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="container h-100">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-6 text-white hero-text">
+        <p class="badge-glow mb-3">Premium Event Management</p>
+        <h1 class="mb-3 hero-heading">
+          We design moments<br>
+          <span class="gradient-text">you’ll never forget</span>
+        </h1>
+        <p class="mb-4 hero-subtext">
+          Wedding Stage Decor • Birthday Setup • Corporate Events • Public Functions • College Events & Functions •
+          DJ • Stage • Sound • Light • LED Wall • Shooting • Elimination Shows
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{% url 'categories' %}" class="btn btn-primary btn-lg hero-btn">
+            <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Explore Services
+          </a>
+          <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">
+            <i class="fa-regular fa-calendar-check me-2"></i> Talk to Us
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="hero-card shadow-lg">
+          <img src="{% static 'events/img/hero.jpg' %}" class="img-fluid rounded-4" alt="Event Image">
+          <div class="hero-card-badge">
+            <i class="fa-solid fa-star me-1"></i> Trending: Luxury Wedding Stage
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section-padding">
+  <div class="container">
+    <div class="section-header d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <h2 class="section-title">Event Categories</h2>
+        <p class="section-subtitle">All major events covered – fully custom designs.</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      {% for category in categories %}
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="category-card h-100">
+            <div class="category-image-wrapper">
+              {% if category.image %}
+                <img src="{{ category.image.url }}" class="category-image" alt="{{ category.name }}">
+              {% else %}
+                <div class="category-placeholder">
+                  <i class="fa-solid fa-image"></i>
+                </div>
+              {% endif %}
+            </div>
+            <div class="category-body">
+              <h5 class="category-title">{{ category.name }}</h5>
+              <p class="category-text">
+                {{ category.description|default:"Custom-designed setups for your special moments."|truncatechars:70 }}
+              </p>
+              <a href="{% url 'services_by_category' category.id %}" class="category-link">
+                View services <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No categories created yet. Add from admin panel.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED SERVICES -->
+<section class="section-padding pt-0">
+  <div class="container">
+    <div class="section-header d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <h2 class="section-title">Featured Services</h2>
+        <p class="section-subtitle">Most booked packages for weddings & functions.</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      {% for service in featured_services %}
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card h-100">
+            <div class="service-image-wrapper">
+              {% if service.image %}
+                <img src="{{ service.image.url }}" class="service-image" alt="{{ service.title }}">
+              {% else %}
+                <div class="service-placeholder">
+                  <i class="fa-solid fa-couch"></i>
+                </div>
+              {% endif %}
+              <div class="service-tag">
+                From ₹{{ service.price_start }}
+              </div>
+            </div>
+            <div class="service-body">
+              <p class="service-category mb-1">{{ service.category.name }}</p>
+              <h5 class="service-title">{{ service.title }}</h5>
+              <p class="service-text">
+                {{ service.short_description|truncatechars:110 }}
+              </p>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <a href="{% url 'service_detail' service.id %}" class="btn btn-sm btn-outline-light">
+                  Details
+                </a>
+                <a href="{% url 'book_service' service.id %}" class="btn btn-sm btn-primary">
+                  <i class="fa-regular fa-calendar-check me-1"></i> Book
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No services added yet. Create a few in admin.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
