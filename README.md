@@ -17,7 +17,7 @@ A web-based Event Management System built using Django that helps users manage e
 - **Django**
 - **HTML, CSS, JavaScript**
 - **Bootstrap**
-- **SQLite / PostgreSQL**
+- **SQLite**
 
 
 
